@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 	
-def get_page(url, ctimeout=10, rtimeout=30):
+def get_page_content(url, ctimeout=10, rtimeout=30):
     uas = [
         "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36",
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36",
@@ -28,11 +28,12 @@ def get_page(url, ctimeout=10, rtimeout=30):
     )
     return response.content
 
-def get_page_selector(url, ctimeout=10, rtimeout=30):
-    content = get_page(url, ctimeout=ctimeout, rtimeout=rtimeout)
+def get_page_selector(content, ctimeout=10, rtimeout=30):
     soup = BeautifulSoup(content, "html5lib")
     return soup
 
-page_selector = get_page_selector("https://www.google.com.tr/search?q=hello")
+page_content = get_page_content("https://www.google.com/search?q=hello")
+page_selector = get_page_selector(page_content)
 
-page_selector.title
+page_title = page_selector.title
+print(page_title)
